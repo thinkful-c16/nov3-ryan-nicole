@@ -1,4 +1,5 @@
 /* global $ */
+'use strict';
 
 function generateItem(itemName) {
   return `
@@ -31,9 +32,16 @@ function handleToggleItem() {
   });
 }
 
+function handleDeleteItem() {
+  $('.js-shopping-list').on('click', '.shopping-item-delete', function(event) {
+    $(event.target).closest('li').remove();
+  });
+}
+
 function main() {
   handleItemSubmit();
   handleToggleItem();
+  handleDeleteItem();
 }
 
 $(main);
