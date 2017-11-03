@@ -40,17 +40,27 @@ function handleItemSubmit() {
 function renderList(){
   let itemsElements = STORE.map(
     function(item, index){
-          return generateItem(item, index);
-        });
-  itemsElements = itemsElements.join();
+      return generateItem(item, index);
+    });
+  itemsElements = itemsElements.join('');
   $('.js-shopping-list').html(itemsElements);
 }
 
-
-
 function handleToggleItem() {
-  $('.js-shopping-list').on('click', '.js-shopping-item-toggle', function(event) {
+  $('.js-shopping-list').on('click', '.shopping-item-toggle', function(event) {
     $(event.target).closest('li').find('span.js-shopping-item').toggleClass('shopping-item__checked');
+  });
+}
+
+function hideChecked() {
+  $('#checkBox').on('change', function(event) {
+    let checkBoxVal = $('input[type=checkbox]').prop('checked');
+    if (checkBoxVal) {
+      $('.js-shopping-list').find('span.shopping-item__checked').parent().toggleClass('hidden');
+    }
+    else {
+      $('.js-shopping-list').find('span.shopping-item__checked').parent().toggleClass('hidden');
+    }
   });
 }
 
@@ -60,13 +70,11 @@ function handleDeleteItem() {
   });
 }
 
-
-
 function main() {
   handleItemSubmit();
-
   handleToggleItem();
   handleDeleteItem();
+  hideChecked();
 }
 
 $(main);
